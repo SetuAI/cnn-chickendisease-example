@@ -70,3 +70,73 @@ Performance: Decoding Base64 on the client-side (e.g., in a web browser) can add
 
 ------------------------------------------------------------------------------
 
+Convert image to base 64 and vice versa : https://base64.guru/
+
+Upload  image and convert to base 64 string and decode it back 
+
+---------------------------------------------------------------------
+
+Performing Dockerization
+
+
+Inside github/worflows create main.yaml , inside which we put cicd commands
+
+
+Push the docker image to ECR (alternate to docker hub)
+Then launch EC2 instance
+Then pull ECR image to EC2 instance
+Launch Docker image in EC2
+
+
+
+
+------------------------------------------------------------------------
+
+CI/CD deployemnt (code in cicd.yaml)
+Dev A develops a project in dev env (say local machine)
+Then code gets commited to Github (code management using git client)
+--------------------this is dev env majorly-------------------------------
+After implementing this project, it needs to be deployed
+say you deploy this on AWS manually created EC2 instance and then endpoint is generated
+with this endpoint any user can access the application
+
+now say after 4 months, your model has to be added with more features in application 
+Once the new features are coded, again you have to deploy the newer version to AWS
+
+Now, when you are deploying for 2nd time
+You have to first stop the older version of application running on EC2 instance
+Then upload the new code to EC2 instance
+
+Say it took 3 hours (downtime) , for the source code to be updated to newer 
+version and the user was unable to access the application for 3 hours
+(typically called server error)
+
+This is where CICD comes in picture
+(In simple terms CICD is, when my older application is up and running for users but in the backend the newly made changes are also getting updated)
+endpoint is automatically updated here in cicd.
+
+We create the cicd pipeline, push it to github   
+github triggers the pipeline and code is updated
+
+How does github trigger ? with cicd automation tool .
+Like github actions, jenkins, circle ci , etc .. 
+
+github actions is a cicd automation tool, which is free and open source
+for jenkins and circle ci you have to setup servers manually.
+
+---------------------------------------------------------------------
+
+AWS
+
+-create IAM user - search for IAM (indentity access management)
+-- create user - give username (say rebitproj)
+-Next - Attach policies directly
+Policy: (search and select)
+AmazonEC2ContainerRegistryFullAccess
+
+AmazonEC2FullAccess
+-- Next --- Create User -- Click on the user
+-- go to security credentials -- create access key -- 
+-- select CLI -- confirm,next 
+-- Create user and store the access key and secret key generated
+-- Done (you can also download the csv if needed)

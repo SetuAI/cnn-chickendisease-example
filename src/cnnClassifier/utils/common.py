@@ -125,6 +125,12 @@ def get_size(path: Path) -> str:
     return f"~ {size_in_kb} KB"
 
 
+# In the below functions we are encoding and decoding the image
+# image to base 64 string and then base 64 string to image
+# image encoding and decoding is done by using base64 encoding
+# https://base64.guru/
+
+
 def decodeImage(imgstring, fileName):
     imgdata = base64.b64decode(imgstring)
     with open(fileName, 'wb') as f:
