@@ -1,6 +1,10 @@
 from cnnClassifier.config.configuration import ConfigurationManager
 from cnnClassifier.components.model_trainer import Training
 from cnnClassifier import logger
+import tensorflow as tf
+
+# Ensure TensorFlow's eager execution is enabled
+tf.compat.v1.enable_eager_execution()
 
 
 STAGE_NAME = "TRAINING STAGE"

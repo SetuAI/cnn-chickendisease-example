@@ -9,6 +9,11 @@ from src.cnnClassifier.pipeline.stage_01_dataingestion import DataIngestionTrain
 from src.cnnClassifier.pipeline.stage_02_prepare_base_model import PrepareBaseModelTrainingPipeline
 from src.cnnClassifier.pipeline.stage_03_model_trainer import ModelTrainingPipeline
 from src.cnnClassifier.pipeline.stage_04_evaluation import EvaluationPipeline
+import tensorflow as tf
+
+# Ensure TensorFlow's eager execution is enabled
+tf.compat.v1.enable_eager_execution()
+
 
 STAGE_NAME = "DATA INGESTION STAGE"
 try:
@@ -58,3 +63,4 @@ except Exception as e:
         raise e
     
     # once this is triggered, you can create predict.py
+    
