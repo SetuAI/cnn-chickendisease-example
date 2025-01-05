@@ -36,15 +36,34 @@ CLASSES: 2
 WEIGHTS: imagenet
 LEARNING_RATE: 0.01
 
-AUGMENTATION : True, we are using data augmentation to increase the size of the dataset
-IMAGE_SIZE : [224, 224, 3] as per VGG 16 model
-BATCH_SIZE : 16, we are using batch size of 16
-INCLUDE_TOP : False, we are not including the top layer of the VGG 16 model
-EPOCHS : 1, we are using 1 epoch for training
-CLASSES : 2, we are using 2 classes for classification
-WEIGHTS : imagenet, we are using imagenet weights for the model, we want pretrained version
+Parameters Explanation :
 
+AUGMENTATION: True
+This enables data augmentation, a powerful technique where your training images are automatically modified (rotated, flipped, zoomed) during training. Think of it like teaching your model to recognize chicken diseases from different angles and distances, even if your original dataset doesn't have all these variations. Setting this to True helps your model become more robust and generalize better.
 
+IMAGE_SIZE: [224, 224, 3]
+This defines the dimensions of images your model will process: 224 pixels wide, 224 pixels high, and 3 color channels (Red, Green, Blue). This specific size isn't arbitrary - it's chosen to match VGG16's requirements, the pre-trained model you're using. Every image fed into your model will be resized to these dimensions, ensuring consistency in processing.
+
+BATCH_SIZE: 16
+During training, your model processes images in groups of 16. Think of it like a teacher grading papers - instead of grading one at a time or all at once, they grade in manageable stacks. This batch size is a good balance between training speed and memory usage for most modern GPUs.
+
+INCLUDE_TOP: False
+This tells the VGG16 model to exclude its original classification layers. By setting this to False, you're keeping VGG16's powerful feature extraction capabilities but removing its original classification system, allowing you to add your own layers specifically for identifying chicken diseases.
+
+EPOCHS: 1
+This defines how many times your model will process the entire dataset during training. While 1 epoch might seem low (and in practice, you'd typically use more), it's often used for testing the training pipeline before running longer training sessions.
+
+CLASSES: 2
+This indicates your model needs to distinguish between two categories - healthy chickens and those with Coccidiosis. This parameter determines the size of your model's final classification layer.
+
+WEIGHTS: imagenet
+This tells VGG16 to initialize using weights pre-trained on ImageNet, a massive dataset of various images. It's like giving your model a head start with general image recognition skills before it specializes in chicken disease detection.
+
+LEARNING_RATE: 0.01
+This controls how much your model adjusts its understanding based on each batch of training data. A value of 0.01 is relatively standard - not so high that training becomes unstable, but not so low that learning becomes too slow.
+These parameters work together synergistically. For example, the BATCH_SIZE and LEARNING_RATE interact to influence how smoothly your model learns, while AUGMENTATION helps make the most of your training data given the number of EPOCHS.
+
+----------------------------------------------------------------------------------------
 ----what is base 64 when working with an image ? -------------
 
 Base64 encoding, when used with images, is a way to represent image data as a text string. Instead of storing an image as a binary file (a sequence of 0s and 1s that computers understand directly), you convert it into a string of ASCII characters (letters, numbers, and symbols that humans can easily read and copy).
@@ -132,11 +151,52 @@ AWS
 -- create user - give username (say rebitproj)
 -Next - Attach policies directly
 Policy: (search and select)
-AmazonEC2ContainerRegistryFullAccess
 
+AmazonEC2ContainerRegistryFullAccess
 AmazonEC2FullAccess
+
 -- Next --- Create User -- Click on the user
 -- go to security credentials -- create access key -- 
 -- select CLI -- confirm,next 
 -- Create user and store the access key and secret key generated
 -- Done (you can also download the csv if needed)
+
+-- Now the IAM user is created
+---------------------------------------------------------------------
+--- Now creating the ECR Repository
+
+-- Search for ECR (Elastic Container Registry)
+(make sure you have selected the region)
+
+-- create repo
+-- give the namespace/repo (rebitproj)
+-- keep the other details as it is and create 
+-- after that, copy paste the uri and save it
+
+-------------------------------------------------------------------------------
+
+-- Creating EC2 instance (Ubuntu)
+
+-- In the console, search for EC2 instance
+-- click on Launch Instance
+-- enter the server name (ml-rebit)
+-- select ubuntu
+-- select instance type  -- t2.large (8gb)
+-- in key pair login , name it -- (mlrebitproject) -- create key pair
+(if you want to access this instance with any 3rd party tool, you have to create a key pair)
+
+-- scrolling down check on : Allow HTTPS traffic and HTTP traffic
+
+-- configure storage 1 X 30 GB
+
+-- After this , click on Launch Instance
+
+-- Once done, click on View all instances -- and refresh it
+-- You will see the status running
+-- Click on Instance ID
+-- Click on Connect and Connect
+
+-- you will see a terminal opening up and that is your prod server
+
+------------------------------------------------------------------------------
+

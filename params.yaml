@@ -6,3 +6,27 @@ EPOCHS: 1
 CLASSES: 2
 WEIGHTS: imagenet
 LEARNING_RATE: 0.01
+
+'''
+Explanation :
+AUGMENTATION: True
+This enables data augmentation, a powerful technique where your training images are automatically modified (rotated, flipped, zoomed) during training. Think of it like teaching your model to recognize chicken diseases from different angles and distances, even if your original dataset doesn't have all these variations. Setting this to True helps your model become more robust and generalize better.
+IMAGE_SIZE: [224, 224, 3]
+This defines the dimensions of images your model will process: 224 pixels wide, 224 pixels high, and 3 color channels (Red, Green, Blue). This specific size isn't arbitrary - it's chosen to match VGG16's requirements, the pre-trained model you're using. Every image fed into your model will be resized to these dimensions, ensuring consistency in processing.
+BATCH_SIZE: 16
+During training, your model processes images in groups of 16. Think of it like a teacher grading papers - instead of grading one at a time or all at once, they grade in manageable stacks. This batch size is a good balance between training speed and memory usage for most modern GPUs.
+INCLUDE_TOP: False
+This tells the VGG16 model to exclude its original classification layers. By setting this to False, you're keeping VGG16's powerful feature extraction capabilities but removing its original classification system, allowing you to add your own layers specifically for identifying chicken diseases.
+EPOCHS: 1
+This defines how many times your model will process the entire dataset during training. While 1 epoch might seem low (and in practice, you'd typically use more), it's often used for testing the training pipeline before running longer training sessions.
+CLASSES: 2
+This indicates your model needs to distinguish between two categories - healthy chickens and those with Coccidiosis. This parameter determines the size of your model's final classification layer.
+WEIGHTS: imagenet
+This tells VGG16 to initialize using weights pre-trained on ImageNet, a massive dataset of various images. It's like giving your model a head start with general image recognition skills before it specializes in chicken disease detection.
+LEARNING_RATE: 0.01
+This controls how much your model adjusts its understanding based on each batch of training data. A value of 0.01 is relatively standard - not so high that training becomes unstable, but not so low that learning becomes too slow.
+These parameters work together synergistically. For example, the BATCH_SIZE and LEARNING_RATE interact to influence how smoothly your model learns, while AUGMENTATION helps make the most of your training data given the number of EPOCHS.
+
+
+
+'''

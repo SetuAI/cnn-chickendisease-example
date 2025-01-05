@@ -1,3 +1,10 @@
+'''
+This configuration.py file acts as the central nervous system of your CNN project.
+It's a crucial architectural decision that implements what's known as the "Configuration Pattern" -
+a software design pattern that separates configuration from implementation.
+
+'''
+
 import os
 from cnnClassifier.constants import *
 from cnnClassifier.utils.common import read_yaml, create_directories
@@ -93,6 +100,8 @@ class ConfigurationManager:
             params_batch_size=self.params.BATCH_SIZE
         )
         return eval_config
+    
+    # update in components/evaluation.py
 
 
  
